@@ -49,10 +49,10 @@
   :group 'convenience)
 
 (defcustom auto-less-exclude-modes
-  '(shell-mode term-mode comint-mode twittering-edit-mode calendar-mode
-               log-edit-mode gnus-summary-mode gnus-group-mode message-mode
-               dired-mode ibuffer-mode apropos-mode completion-list-mode
-               ediff-mode)
+  '(term-mode comint-mode twittering-edit-mode calendar-mode
+              log-edit-mode gnus-summary-mode gnus-group-mode message-mode
+              dired-mode ibuffer-mode apropos-mode completion-list-mode
+              ediff-mode image-dired-thumbnail-mode proced-mode)
   "Do not turn on `auto-less-minor-mode' for these major modes."
   :type 'list
   :group 'convenience)
@@ -123,13 +123,14 @@ With less-minor-mode enabled, you could use `less' like keys to view files.
   "Turn on `less-minor-mode' for files not matching `auto-less-exclude-regexp'.
 
 This is a useful hook to add to `find-file-hook'."
-  (unless (or (and (not (string= auto-less-exclude-regexp ""))
-                   (string-match auto-less-exclude-regexp
-                                 (or buffer-file-name (buffer-name))))
-              (memq major-mode auto-less-exclude-modes)
-              (minibufferp)
-              (not (if buffer-file-name (file-exists-p buffer-file-name) t)))
-    (less-minor-mode 1)))
+  (if (or (and (not (string= auto-less-exclude-regexp ""))
+               (string-match auto-less-exclude-regexp
+                             (or buffer-file-name (buffer-name))))
+          (apply 'derived-mode-p auto-less-exclude-modes)
+          (minibufferp)
+          (not (if buffer-file-name (file-exists-p buffer-file-name) t)))
+      (less-minor-mode-off)
+    (less-minor-mode-on)))
 
 ;;;###autoload
 (defun less-minor-mode-on ()
