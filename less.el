@@ -1,6 +1,6 @@
 ;;; less.el --- less style view mode
 
-;; Copyright (C) 2005, 2007, 2009, 2010, 2011 William Xu
+;; Copyright (C) 2005, 2007, 2009, 2010, 2011, 2014 William Xu
 
 ;; Author: William Xu <william.xwl@gmail.com>
 ;; Version: 0.5
@@ -52,7 +52,7 @@
   '(term-mode comint-mode twittering-edit-mode calendar-mode
               log-edit-mode gnus-summary-mode gnus-group-mode message-mode
               dired-mode ibuffer-mode apropos-mode completion-list-mode
-              ediff-mode image-dired-thumbnail-mode proced-mode)
+              ediff-mode image-dired-thumbnail-mode proced-mode shell-mode)
   "Do not turn on `auto-less-minor-mode' for these major modes."
   :type 'list
   :group 'convenience)
